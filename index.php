@@ -11,7 +11,7 @@
 		<p><strong>Name:</strong> Mike </p>
 		<p><strong>Age:</strong> 28</p>
 		<p><strong>Profession :</strong> Mike makes customized fidget spinners in his spare time. He is an engineer full time.</p>
-		<p><strong>Technology:</strong> Uses Mac book pro when he is dealing with business or at work and a newer Iphone for
+		<p><strong>Technology:</strong> Uses Mac book pro Retina when he is dealing with business or at work and a Iphone 7 plus for
 			daily use.</p>
 		<p><strong>Attitudes and Behaviors:</strong> Mike is ready to take his small hobby and make it into a revenue generator. He
 		will be dedicating weekends and evenings to his fidget spinners. If it takes off he would be willing to quit his job and
@@ -27,5 +27,13 @@
 		<p>Mikes biggest sticking point is giving his customers the option of customization and also being able to show his past work.</p>
 		<p>It is Thursday and Mike needs to be able to get his site up in under 30 minutes during his lunch break as he already
 		has people wanting to order. The weekend is fast approaching.</p>
+		<h2><strong>Interaction Flow</strong>
+		</h2>
+		<ul>
+			<li>User will need to post multiple pictures of different fidget spinners he has recently customized</li>
+			<li>User will need to set up different pricing for different customizations</li>
+			<li>User will need to be able to interact with customers and give replies</li>
+			<li>User will be able to check new orders and comments</li>
+		</ul>
 	</body>
 </html>
