@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<!---I made my letters pink!---->
+		<style> body { background-color: grey;}</style>
+		<!--I made my letters pink!-->
 		<style>strong { text align: center;
 		color: mediumvioletred;}</style>
 		<meta charset="utf-8"/>
 		<title>About Mike</title>
 	</head>
 	<body>
-		<h1 id="page header">Meet Mike Waters</h1>
-	<img src="epic/image/mikefidgetspinner.jpg">
+		<h1 id="pageheader">Meet Mike Waters</h1>
+		<img style="margin:0 auto;display:block" src="epic/image/mikefidgetspinner.jpg" alt="Mike">
 		<h1>Persona</h1>
 		<p><strong>Name:</strong> Mike </p>
 		<p><strong>Age:</strong> 28</p>
