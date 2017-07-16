@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<style>h1 {text-align: center</style>
 		<style> body { background-color: grey;}</style>
 		<!--I made my letters pink!-->
-		<style>strong { text align: center;
+		<style>strong, h1 { text align: center;
 		color: mediumvioletred;}</style>
 		<meta charset="utf-8"/>
 		<title>About Mike</title>
