@@ -35,5 +35,13 @@
 			<li>User will need to be able to interact with customers and give replies</li>
 			<li>User will be able to check new orders and comments</li>
 		</ul>
+		<h2><strong>Conceptual Model</strong></h2>
+		<ul>
+			<li>One profile can post multiple pictures</li>
+			<li>Multiple items can have multiple prices</li>
+			<li>One profile can reply to multiple user replies</li>
+			<li>Multiple users can comment to multiple items</li>
+			<li>One profile can check on multiple orders</li>
+		</ul>
 	</body>
 </html>
