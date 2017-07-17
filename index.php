@@ -61,5 +61,6 @@
 			<li>Multiple profile can buy multiple items M-to-n</li>
 			<li>One profile can check on multiple items 1-to-n</li>
 		</ul>
+		<img src="">
 	</body>
 </html>
