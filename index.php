@@ -35,18 +35,31 @@
 		<h2><strong>Interaction Flow</strong>
 		</h2>
 		<ul>
-			<li>User will need to post multiple pictures of different fidget spinners he has recently customized</li>
-			<li>User will need to set up different pricing for different customizations</li>
-			<li>User will need to be able to interact with customers and give replies</li>
-			<li>User will be able to check new orders and comments</li>
+			<li>User will need to post items for sale by signing in, going to edit items, and listing items for sale </li>
+			<li>Browser pulls up profile information and items for sale so user can post items for sale.</li>
+			<li>User will need to set up different pricing for different items.</li>
+			<li>Browser will pull up all items for sale in profile.</li>
 		</ul>
 		<h2><strong>Conceptual Model</strong></h2>
 		<ul>
-			<li>One profile can post multiple pictures</li>
-			<li>Multiple items can have multiple prices</li>
-			<li>One profile can reply to multiple user replies</li>
-			<li>Multiple users can comment to multiple items</li>
-			<li>One profile can check on multiple orders</li>
+			<li>Profile</li>
+			<li>profileId (primary key)</li>
+			<li>profileEmail</li>
+			<li>profilePhone</li>
+			<li>profileHash</li>
+			<li>profileSalt</li>
+		</ul>
+		<ul>
+			<li>Items</li>
+			<li>itemId (primary key)</li>
+			<li>itemName</li>
+			<li>itemPrice</li>
+			<li>itemProfileId (foreign key)</li>
+		</ul>
+		<ul>
+			<li>One profile can post multiple items 1-to-n</li>
+			<li>Multiple profile can buy multiple items M-to-n</li>
+			<li>One profile can check on multiple items 1-to-n</li>
 		</ul>
 	</body>
 </html>
