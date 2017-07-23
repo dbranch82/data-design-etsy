@@ -3,6 +3,8 @@ DROP TABLE IF EXISTS profile;
 
 CREATE TABLE profile(
 profileId INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	profileActivationToken VARCHAR(128),
+	profileAtHandle VARCHAR(128),
 	profileEmail VARCHAR(128)NOT NULL ,
 	profilePhone VARCHAR(32),
 	profileHash CHAR(128)NOT NULL,
