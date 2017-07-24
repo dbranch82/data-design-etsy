@@ -51,6 +51,16 @@ class Profile {
 	 *
 	 **/
 	private $profileSalt;
+	/**
+	 * constructor for this profile
+	 *
+	 * @param int|null $newProfile of this profile or null if a new Profile
+	 * @throws \InvalidArgumentException if data types are not valid
+	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
+	 * @throws \TypeError if data types violate type hints
+	 * @throws \Exception if some other exception occurs
+	 * @Documentation https://php.net/manual/en/language.oop5.decon.php
+	 **/
 
 	/**
 	 * accessor method for profileId
@@ -64,6 +74,7 @@ class Profile {
 	public function getProfileId(): int {
 		return $this->profileId;
 	}
+
 	/**
 	 *mutator method for profileId
 	 *
@@ -72,7 +83,41 @@ class Profile {
 	 * @throws \TypeError if $newProfileId is not an integer
 	 *
 	 **/
-	public function setProfileId(int $profileId) {
-		$this->profileId = $profileId;
+	public function setProfileId(int $profileId): void {
+		//if profileId is null immediately return if
+		if($newProfileId === null) {
+			$this->profileId = null;
+			return;
+		}
+		//verify that profileId is positive
+
+		if($newProfileId <= 0) {
+			throw(new \RangeException("profileId is not positive"));
+		}
 	}
+	/**
+	 * accessor method for profileActivationToken
+	 *
+	 * @return string value of profile activation token
+	 **/
+	public function getprofileActivationToken() : int{
+		return($this->profileActivationToken);
+	}
+
+	/**
+	 * mutator method for profileActivationToken
+	 *
+	 * @param int $newProfileActivationToken new value of tweet profile id
+	 * @throws \RangeException if $newProfileId is not positive
+	 * @throws \TypeError if $newProfileId is not an integer
+	 **/
+	public function setProfileActivationHandle(int $newProfileActivationToken) : void {
+
+		// verify the profile id is positive
+		if($newTweetProfileId <= 0) {
+			throw(new \RangeException("tweet profile id is not positive"));
+		}
+
+		// convert and store the profile id
+		$this->profileActivationToken = $newProfileActivationToken;
 }
