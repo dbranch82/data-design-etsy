@@ -55,7 +55,12 @@ class Profile {
 
 	/**
 	 * constructor for this profile
-	 *
+	 * @param string $newProfileHash
+	 * @param string $newProfileSalt new value of profile salt
+	 * @param string $newProfilePhone new value of profile phone
+	 * @param string $newProfileAtHandle new value of profile at handle
+	 * @param string $newProfileEmail new value of profile email
+	 * @param string $newProfileActivationToken new value of profile Activation
 	 * @param int|null $newProfileId of this profile or null if a new Profile
 	 * @throws \InvalidArgumentException if data types are not valid
 	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
@@ -115,7 +120,7 @@ class Profile {
 	/**
 	 * accessor method for profile Activation Token
 	 *
-	 * @return int value of profile Activation Token
+	 * @return string value of profile Activation Token
 	 **/
 	public function getProfileActivationToken(): string {
 		return ($this->profileActivationToken);
@@ -124,7 +129,7 @@ class Profile {
 	/**
 	 * mutator method for profileActivationToken
 	 *
-	 * @param int $newProfileActivationToken new value of profile Activation Token
+	 * @param string $newProfileActivationToken new value of profile Activation Token
 	 * @throws \RangeException if $newProfileActivationToken is not positive
 	 * @throws \TypeError if $newProfileActivationToken is not a string
 	 **/
@@ -207,11 +212,11 @@ class Profile {
 	/**
 	 * mutator method for profile phone
 	 *
-	 * @param int|null $newProfilePhone new value of profile phone
+	 * @param string $newProfilePhone new value of profile phone
 	 * @throws \RangeException if $newProfilePhone is not positive
 	 * @throws \TypeError if $newProfilePhone is not a string
 	 **/
-	public function setProfilePhone(?int $newProfilePhone): void {
+	public function setProfilePhone($newProfilePhone): void {
 		//if profile phone is null immediately return it
 		if($newProfilePhone === null) {
 			$this->profilePhone = null;
@@ -235,7 +240,7 @@ class Profile {
 	 * @throws \RangeException if $newProfileHash is not positive
 	 * @throws \TypeError if $newProfileHash is not a string
 	 **/
-	public function setProfileHash(?int $newProfileHash): void {
+	public function setProfileHash($newProfileHash): void {
 		//if profile hash is null immediately return it
 		if($newProfileHash === null) {
 			$this->profileHash = null;
@@ -255,7 +260,7 @@ class Profile {
 	/**
 	 * mutator method for profile salt
 	 *
-	 * @param int|null $newProfileSalt new value of profile salt
+	 * @param string $newProfileSalt new value of profile salt
 	 * @throws \RangeException if $newProfileSalt is not positive
 	 * @throws \TypeError if $newProfileSalt is not a string
 	 **/
