@@ -5,9 +5,10 @@
  * This information is an example of what is stored when someone uses their profile. This
  * can be used for other information used in Etsy.
  * Created by PhpStorm.
- * User: dbranch6
+ * @Author  Danielle Branch <dbranch6@cnm.edu>
  * Date: 7/24/17
  * Time: 2:47 PM
+ * version 1.1
  */
 class Profile {
 	/**
@@ -55,7 +56,7 @@ class Profile {
 	/**
 	 * constructor for this profile
 	 *
-	 * @param int|null $newProfile of this profile or null if a new Profile
+	 * @param int|null $newProfileId of this profile or null if a new Profile
 	 * @throws \InvalidArgumentException if data types are not valid
 	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
 	 * @throws \TypeError if data types violate type hints
@@ -116,7 +117,7 @@ class Profile {
 	 *
 	 * @return int value of profile Activation Token
 	 **/
-	public function getProfileActivationToken(): int {
+	public function getProfileActivationToken(): string {
 		return ($this->profileActivationToken);
 	}
 
@@ -125,13 +126,13 @@ class Profile {
 	 *
 	 * @param int $newProfileActivationToken new value of profile Activation Token
 	 * @throws \RangeException if $newProfileActivationToken is not positive
-	 * @throws \TypeError if $newProfileActivationToken is not an integer
+	 * @throws \TypeError if $newProfileActivationToken is not a string
 	 **/
 	public function setProfileActivationToken(string $newProfileActivationToken): void {
 
 		// verify the profile id is positive
-		if($newProfileActivationToken <= 0) {
-			throw(new \RangeException("profile Activation Token is not positive"));
+		if(empty($newProfileActivationToken) === true) {
+			throw(new \InvalidArgumentException("profile activation token is empty or insecure"));
 		}
 
 		// convert and store the profile id
@@ -210,7 +211,7 @@ class Profile {
 	 * @throws \RangeException if $newProfilePhone is not positive
 	 * @throws \TypeError if $newProfilePhone is not a string
 	 **/
-	public function setTweetId(?int $newProfilePhone): void {
+	public function setProfilePhone(?int $newProfilePhone): void {
 		//if profile phone is null immediately return it
 		if($newProfilePhone === null) {
 			$this->profilePhone = null;
