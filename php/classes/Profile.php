@@ -55,7 +55,7 @@ class Profile {
 
 	/**
 	 * constructor for this profile
-	 * @param string $newProfileHash
+	 * @param string $newProfileHash new value of profile Hash
 	 * @param string $newProfileSalt new value of profile salt
 	 * @param string $newProfilePhone new value of profile phone
 	 * @param string $newProfileAtHandle new value of profile at handle
