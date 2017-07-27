@@ -149,7 +149,7 @@ class Profile {
 		}
 
 		//check if it's a valid hash - ctype_xdigit()
-		ctype_xdigit (string,  $newProfileActivationToken);
+		ctype_xdigit(string,$newProfileActivationToken);
 		//check if it is EXACTLY 32 characters long (strlen method)
 
 		// convert and store the profile id
@@ -211,10 +211,10 @@ class Profile {
 		if(empty($newProfileEmail) === true) {
 			throw(new \InvalidArgumentException("profile email is empty or insecure"));
 		}
-		if(strlen($newProfileEmail)>128);
-			throw(new \RangeException("profile email content too large"));
+		if(strlen($newProfileEmail) > 128) ;
+		throw(new \RangeException("profile email content too large"));
 		//check length
-$this->profileEmail = $newProfileEmail;
+		$this->profileEmail = $newProfileEmail;
 		//store it
 	}
 
@@ -244,12 +244,12 @@ $this->profileEmail = $newProfileEmail;
 		$newProfilePhone = filter_var($newProfilePhone, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newProfilePhone) === true) {
 			throw(new \InvalidArgumentException("profile phone is empty or insecure"));
-			}
-			if (strlen($newProfilePhone)>32);
+		}
+		if(strlen($newProfilePhone) > 32) ;
 		throw(new \RangeException("profile phone is too long"));
 
 		//put it through the wash
-$this->profilePhone = $newProfilePhone;
+		$this->profilePhone = $newProfilePhone;
 		//check length
 
 		//then store it
@@ -411,14 +411,26 @@ catch(\Exception $exception) {
 		throw(new \PDOException($exception->getMessage(), 0, $exception));
 	}
 return ($profile);
+
 /**
  * Gets the profile by profile Activation Token
  * @param PDO $pdo PDO connection object
  * @param string $profileActivationToken
- * @return
+ * @return \SplFixedArray SplFixedArray of profiles found
+ * @throws \PDOException when mySQL related errors occur
+ * @throws \TypeError when variables are not the correct data type
  *
- *
- */
+ **/
+
+public static function getProfileByProfileActivationToken(\PDO $pdo, string $profileActivationToken) : \SplFixedArray {
+	$profileActivationToken = trim($profileActivationToken);
+	$profileActivationToken = filter_var($profileActivationToken, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	if(empty($profileActivationToken) === true) {
+		throw(new \PDOException("profile activation token content is invalid"));
+	}
+}
+
+
 
 
 
