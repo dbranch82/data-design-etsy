@@ -18,7 +18,7 @@ class Profile {
 	private $profileId;
 	/**
 	 *Random token that activates profile
-	 * @var int $profileActivationToken
+	 * @var string $profileActivationToken
 	 *
 	 **/
 	private $profileActivationToken;
@@ -129,16 +129,22 @@ class Profile {
 	/**
 	 * mutator method for profileActivationToken
 	 *
-	 * @param string $newProfileActivationToken new value of profile Activation Token
+	 * @param string|null $newProfileActivationToken new value of profile Activation Token
 	 * @throws \RangeException if $newProfileActivationToken is not positive
 	 * @throws \TypeError if $newProfileActivationToken is not a string
 	 **/
-	public function setProfileActivationToken(string $newProfileActivationToken): void {
+	public function setProfileActivationToken(?string $newProfileActivationToken): void {
 
-		// verify the profile id is positive
+		//base case: set activation token to null for new profiles - see primary key mutator
+
+		//trim, filter_var sanitize string the activation token - if empty throw exception
 		if(empty($newProfileActivationToken) === true) {
 			throw(new \InvalidArgumentException("profile activation token is empty or insecure"));
 		}
+
+		//check if it's a valid hash - ctype_xdigit()
+
+		//check if it is EXACTLY 32 characters long (strlen method)
 
 		// convert and store the profile id
 		$this->profileActivationToken = $newProfileActivationToken;
@@ -168,7 +174,7 @@ class Profile {
 		if(empty($newProfileAtHandle) === true) {
 			throw(new \InvalidArgumentException("profile at handle is empty or insecure"));
 		}
-		// verify the tweet content will fit in the database
+		// verify the profile content will fit in the database
 		if(strlen($newProfileAtHandle) > 10) {
 			throw(new \RangeException("profile at handle content too large"));
 		}
@@ -193,9 +199,15 @@ class Profile {
 	 * @throws \RangeException if $newProfileEmail already exists
 	 **/
 	public function setProfileEmail(string $newProfileEmail): void {
+
+		//trim and filter_var filter_sanitize_email
 		if(empty($newProfileEmail) === true) {
 			throw(new \InvalidArgumentException("profile activation token is empty or insecure"));
 		}
+
+		//check length
+
+		//store it
 	}
 
 	/**
@@ -203,7 +215,7 @@ class Profile {
 	 *
 	 * @return string value of profile phone
 	 **/
-	public function getProfilePhone() {
+	public function getProfilePhone() :string {
 		return ($this->profilePhone);
 	}
 
@@ -214,12 +226,18 @@ class Profile {
 	 * @throws \RangeException if $newProfilePhone is not positive
 	 * @throws \TypeError if $newProfilePhone is not a string
 	 **/
-	public function setProfilePhone($newProfilePhone): void {
+	public function setProfilePhone(string $newProfilePhone): void {
 		//if profile phone is null immediately return it
 		if($newProfilePhone === null) {
 			$this->profilePhone = null;
 			return;
 		}
+
+		//put it through the wash
+
+		//check length
+
+		//then store it
 	}
 
 	/**
@@ -287,8 +305,15 @@ class Profile {
 profileSalt) VALUES (:profileId, :profileActivationToken, :profileAtHandle, :profileEmail, :profilePhone, :profileHash, :profileSalt)";
 		$statement = $pdo->prepare($query);
 
-		$parameters = ["profileId" => $this->profileId, "profileActivationToken" => $this->profileActivationToken, "profileAtHandle" => $this->profileAtHandle,
-			"profileEmail" => $this->profileEmail, "profilePhone" => $this->profilePhone, "profileHash" => $this->profileHash, "profileSalt" => $this->profileSalt];
+		$parameters = [
+			"profileId" => $this->profileId,
+			"profileActivationToken" => $this->profileActivationToken,
+			"profileAtHandle" => $this->profileAtHandle,
+			"profileEmail" => $this->profileEmail,
+			"profilePhone" => $this->profilePhone,
+			"profileHash" => $this->profileHash,
+			"profileSalt" => $this->profileSalt
+		];
 		$statement->execute($parameters);
 		$this->profileId = intval($pdo->lastInsertId());
 	}
@@ -321,13 +346,15 @@ profileSalt) VALUES (:profileId, :profileActivationToken, :profileAtHandle, :pro
 		if($this->profileId === null) {
 			throw(new \PDOException("unable to update profile that does not exsist"));
 
-			$query = "UPDATE profile SET profileId = :profileId, profileActivationToken = :profileActivatonToken, 
-profileAtHandle = :profileAtHandle, profileEmail = :profileEmail, profilePhone = :profilePhone, 
+			$query = "UPDATE profile SET profileActivationToken = :profileActivatonToken, profileAtHandle = :profileAtHandle, profileEmail = :profileEmail, profilePhone = :profilePhone, 
 profileHash = :profileHash, profileSalt = :profileSalt";
 
 			$statement = $pdo->prepare($query);
 
-			$parameters = ["profileId" => $this->profileId, "profileActivationToken" => $this->profileActivationToken, "profileAtHandle" => $this->profileAtHandle, "profileEmail" => $this->profileEmail,
+			$parameters = [
+				"profileActivationToken" => $this->profileActivationToken,
+				"profileAtHandle" => $this->profileAtHandle,
+				"profileEmail" => $this->profileEmail,
 				"profilePhone" => $this->profilePhone, "profileHash" => $this->profileHash, "profileSalt" => $this->profileSalt];
 			$statement->execute($parameters);
 		}
@@ -344,14 +371,18 @@ profileHash = :profileHash, profileSalt = :profileSalt";
 	 **/
 
 	public static function getProfileByProfileId(\PDO $pdo, int $profileId) : ?Profile {
-		if($profileId <=0) {
+		if($profileId <= 0) {
 			throw(new \PDOException("profileId is not positive"));
-}
+		}
+
 		$query = "SELECT profileId, profileActivationToken, profileAtHandle, profileEmail, profilePhone, profileHash, profileSalt FROM profile WHERE profileId = :profileId";
 		$statement = $pdo->prepare($query);
 		$parameters = ["profileId" => $profileId];
 		$statement->execute($parameters);
-}
+
+		//grab the profile from mysql - this is the try/catch block
+	}
+
 }
 
 

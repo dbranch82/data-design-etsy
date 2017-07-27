@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS profile;
 
 CREATE TABLE profile(
 profileId INT UNSIGNED AUTO_INCREMENT NOT NULL,
-	profileActivationToken VARCHAR(128),
+	profileActivationToken CHAR(32),
 	profileAtHandle VARCHAR(128),
 	profileEmail VARCHAR(128)NOT NULL ,
 	profilePhone VARCHAR(32),
@@ -24,4 +24,5 @@ CREATE TABLE item(
 	PRIMARY KEY (itemId),
 	FOREIGN KEY (itemprofileId) REFERENCES profile(profileId),
 	UNIQUE (itemName),
-	UNIQUE (itemPrice));
+	UNIQUE (itemPrice)
+);
