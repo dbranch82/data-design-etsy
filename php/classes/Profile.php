@@ -192,11 +192,9 @@ class Profile {
 	 * @throws \InvalidArgumentException if $newProfileEmail is not a valid object or string
 	 * @throws \RangeException if $newProfileEmail already exists
 	 **/
-	public function setProfileEmail($newProfileEmail = null): void {
-		// base case: if the date is null, return error
-		if($newProfileEmail === null) {
-			$this->profileEmail = new \profileEmail();
-			return;
+	public function setProfileEmail(string $newProfileEmail): void {
+		if(empty($newProfileEmail) === true) {
+			throw(new \InvalidArgumentException("profile activation token is empty or insecure"));
 		}
 	}
 
@@ -271,5 +269,42 @@ class Profile {
 			return;
 		}
 	}
+
+	/**
+	 * Inserts this profile into mySQL
+	 *
+	 * @param \PDO @pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 *
+	 **/
+	public function insert(\PDO $pdo): void {
+		//enforce the profileId is null
+		if($this->profileId !== null) {
+			throw(new \PDOException("not a new profile"));
+		}
+		$query = "INSERT INTO profile(profileId, profileActivationToken, profileAtHandle, profileEmail, profilePhone, profileHash, 
+profileSalt) VALUES (:profileId, :profileActivationToken, :profileAtHandle, :profileEmail, :profilePhone, :profileHash, :profileSalt)";
+		$statement = $pdo->prepare($query);
+
+		$parameters = ["profileId" => $this->profileId, "profileActivationToken" => $this->profileActivationToken, "profileAtHandle" => $this->profileAtHandle,
+			"profileEmail" => $this->profileEmail, "profilePhone" => $this->profilePhone, "profileHash" => $this->profileHash, "profileSalt" => $this->profileSalt];
+		$statement->execute($parameters);
+		$this->profileId = intval($pdo->lastInsertId());
+	}
+	/**
+	 * Deletes
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO Connection object
+	 **/
+public function delete(\PDO $pdo) : void {
+	if($this->profileId === null) {
+		throw(new \PDOException("unable to delete profile that does not exsist"));
+
+	}
 }
+}
+
+
 
