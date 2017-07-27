@@ -149,7 +149,7 @@ class Profile {
 		}
 
 		//check if it's a valid hash - ctype_xdigit()
-
+		ctype_xdigit (string,  $newProfileActivationToken);
 		//check if it is EXACTLY 32 characters long (strlen method)
 
 		// convert and store the profile id
@@ -205,14 +205,16 @@ class Profile {
 	 * @throws \RangeException if $newProfileEmail already exists
 	 **/
 	public function setProfileEmail(string $newProfileEmail): void {
-
+		$newProfileEmail = trim($newProfileEmail);
+		$newProfileEmail = filter_var($newProfileEmail, FILTER_SANITIZE_EMAIL, FILTER_FLAG_NO_ENCODE_QUOTES);
 		//trim and filter_var filter_sanitize_email
 		if(empty($newProfileEmail) === true) {
-			throw(new \InvalidArgumentException("profile activation token is empty or insecure"));
+			throw(new \InvalidArgumentException("profile email is empty or insecure"));
 		}
-
+		if(strlen($newProfileEmail)>128);
+			throw(new \RangeException("profile email content too large"));
 		//check length
-
+$this->profileEmail = $newProfileEmail;
 		//store it
 	}
 
@@ -238,9 +240,16 @@ class Profile {
 			$this->profilePhone = null;
 			return;
 		}
+		$newProfilePhone = trim($newProfilePhone);
+		$newProfilePhone = filter_var($newProfilePhone, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newProfilePhone) === true) {
+			throw(new \InvalidArgumentException("profile phone is empty or insecure"));
+			}
+			if (strlen($newProfilePhone)>32);
+		throw(new \RangeException("profile phone is too long"));
 
 		//put it through the wash
-
+$this->profilePhone = $newProfilePhone;
 		//check length
 
 		//then store it
@@ -256,7 +265,7 @@ class Profile {
 	}
 
 	/**
-	 * mutator method for profile phone
+	 * mutator method for profile hash
 	 *
 	 * @param int|null $newProfileHash new value of profile hash
 	 * @throws \RangeException if $newProfileHash is not positive
@@ -402,6 +411,14 @@ catch(\Exception $exception) {
 		throw(new \PDOException($exception->getMessage(), 0, $exception));
 	}
 return ($profile);
+/**
+ * Gets the profile by profile Activation Token
+ * @param PDO $pdo PDO connection object
+ * @param string $profileActivationToken
+ * @return
+ *
+ *
+ */
 
 
 
