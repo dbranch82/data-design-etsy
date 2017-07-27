@@ -343,14 +343,15 @@ profileHash = :profileHash, profileSalt = :profileSalt";
 	 *
 	 **/
 
-	public static function getProfileByProfileId(\PDO $pdo int, $profileId) : ?Profile {
+	public static function getProfileByProfileId(\PDO $pdo, int $profileId) : ?Profile {
 		if($profileId <=0) {
-			throw(new \PDOException("profileId is not positive");
+			throw(new \PDOException("profileId is not positive"));
 }
 		$query = "SELECT profileId, profileActivationToken, profileAtHandle, profileEmail, profilePhone, profileHash, profileSalt FROM profile WHERE profileId = :profileId";
 		$statement = $pdo->prepare($query);
 		$parameters = ["profileId" => $profileId];
 		$statement->execute($parameters);
+}
 }
 
 
