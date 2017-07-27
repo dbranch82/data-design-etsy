@@ -133,13 +133,19 @@ class Profile {
 	 * @throws \RangeException if $newProfileActivationToken is not positive
 	 * @throws \TypeError if $newProfileActivationToken is not a string
 	 **/
-	public function setProfileActivationToken(?string $newProfileActivationToken): void {
 
-		//base case: set activation token to null for new profiles - see primary key mutator
+	public function setProfileActivationToken(?string $newProfileActivationToken): void {
+		//if profile Activation Token is null immediately return it
+
+		$newProfileActivationToken = trim($newProfileActivationToken);
+		$newProfileActivationToken = filter_var($newProfileActivationToken, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 		//trim, filter_var sanitize string the activation token - if empty throw exception
 		if(empty($newProfileActivationToken) === true) {
 			throw(new \InvalidArgumentException("profile activation token is empty or insecure"));
+		}
+		if(strlen($newProfileActivationToken) > 32) {
+			throw(new\RangeException("profile activation token too large"));
 		}
 
 		//check if it's a valid hash - ctype_xdigit()
@@ -175,7 +181,7 @@ class Profile {
 			throw(new \InvalidArgumentException("profile at handle is empty or insecure"));
 		}
 		// verify the profile content will fit in the database
-		if(strlen($newProfileAtHandle) > 10) {
+		if(strlen($newProfileAtHandle) > 128) {
 			throw(new \RangeException("profile at handle content too large"));
 		}
 
@@ -215,7 +221,7 @@ class Profile {
 	 *
 	 * @return string value of profile phone
 	 **/
-	public function getProfilePhone() :string {
+	public function getProfilePhone(): string {
 		return ($this->profilePhone);
 	}
 
@@ -359,6 +365,7 @@ profileHash = :profileHash, profileSalt = :profileSalt";
 			$statement->execute($parameters);
 		}
 	}
+
 	/**
 	 *gets profile by profileId
 	 *
@@ -370,20 +377,19 @@ profileHash = :profileHash, profileSalt = :profileSalt";
 	 *
 	 **/
 
-	public static function getProfileByProfileId(\PDO $pdo, int $profileId) : ?Profile {
+	public static function getProfileByProfileId(\PDO $pdo, int $profileId): ?Profile {
 		if($profileId <= 0) {
 			throw(new \PDOException("profileId is not positive"));
 		}
-
-		$query = "SELECT profileId, profileActivationToken, profileAtHandle, profileEmail, profilePhone, profileHash, profileSalt FROM profile WHERE profileId = :profileId";
-		$statement = $pdo->prepare($query);
-		$parameters = ["profileId" => $profileId];
-		$statement->execute($parameters);
-
-		//grab the profile from mysql - this is the try/catch block
 	}
+$query = "SELECT profileId, profileActivationToken, profileAtHandle, profileEmail, profilePhone, profileHash, profileSalt FROM profile WHERE profileId = :profileId";
+$statement = $pdo->prepare($query);
+$parameters = ["profileId" => $profileId];
+$statement->execute($parameters);
 
+	//grab the profile from mysql - this is the try/catch block
 }
+
 
 
 
