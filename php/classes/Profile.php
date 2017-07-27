@@ -381,13 +381,13 @@ profileHash = :profileHash, profileSalt = :profileSalt";
 		if($profileId <= 0) {
 			throw(new \PDOException("profileId is not positive"));
 		}
-	}
-$query = "SELECT profileId, profileActivationToken, profileAtHandle, profileEmail, profilePhone, profileHash, profileSalt FROM profile WHERE profileId = :profileId";
-$statement = $pdo->prepare($query);
-$parameters = ["profileId" => $profileId];
-$statement->execute($parameters);
+		$query = "SELECT profileId, profileActivationToken, profileAtHandle, profileEmail, profilePhone, profileHash, profileSalt FROM profile WHERE profileId = :profileId";
+		$statement = $pdo->prepare($query);
+		$parameters = ["profileId" => $profileId];
+		$statement->execute($parameters);
 
-	//grab the profile from mysql - this is the try/catch block
+		//grab the profile from mysql - this is the try/catch block
+	}
 }
 
 
