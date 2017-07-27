@@ -292,18 +292,46 @@ profileSalt) VALUES (:profileId, :profileActivationToken, :profileAtHandle, :pro
 		$statement->execute($parameters);
 		$this->profileId = intval($pdo->lastInsertId());
 	}
+
 	/**
 	 * Deletes
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError if $pdo is not a PDO Connection object
 	 **/
-public function delete(\PDO $pdo) : void {
-	if($this->profileId === null) {
-		throw(new \PDOException("unable to delete profile that does not exsist"));
+	public function delete(\PDO $pdo): void {
+		if($this->profileId === null) {
+			throw(new \PDOException("unable to delete profile that does not exsist"));
+			$query = "DELETE FROM profile WHERE profileId = :profileId";
+			$statement = $pdo->prepare($query);
 
+			$parameters = ["profileId" => $this->profileId];
+			$statement->execute($parameters);
+		}
 	}
-}
+
+	/**
+	 *updates
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 *
+	 **/
+	public function update(\PDO $pdo): void {
+		if($this->profileId === null) {
+			throw(new \PDOException("unable to update profile that does not exsist"));
+
+			$query = "UPDATE profile SET profileId = :profileId, profileActivationToken = :profileActivatonToken, 
+profileAtHandle = :profileAtHandle, profileEmail = :profileEmail, profilePhone = :profilePhone, 
+profileHash = :profileHash, profileSalt = :profileSalt";
+
+			$statement = $pdo->prepare($query);
+
+			$parameters = ["profileId" => $this->profileId, "profileActivationToken" => $this->profileActivationToken, "profileAtHandle" => $this->profileAtHandle, "profileEmail" => $this->profileEmail,
+				"profilePhone" => $this->profilePhone, "profileHash" => $this->profileHash, "profileSalt" => $this->profileSalt];
+			$statement->execute($parameters);
+		}
+	}
 }
 
 
